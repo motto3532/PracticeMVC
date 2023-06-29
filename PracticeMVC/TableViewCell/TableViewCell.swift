@@ -13,12 +13,17 @@ class TableViewCell: UITableViewCell {
     @IBOutlet weak var ageLabel: UILabel!
     @IBOutlet weak var occupationLabel: UILabel!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        nameLabel.text = nil
+        ageLabel.text = nil
+        occupationLabel.text = nil
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    
+    func configure(user: UserModel) {
+        nameLabel.text = user.name
+        ageLabel.text = user.age as! String
+        occupationLabel.text = user.occupation
     }
     
 }
