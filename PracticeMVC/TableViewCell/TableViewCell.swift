@@ -22,7 +22,7 @@ class TableViewCell: UITableViewCell {
     
     func configure(user: UserModel) {
         nameLabel.text = user.name
-        ageLabel.text = user.age as! String
+        ageLabel.text = user.age
         occupationLabel.text = user.occupation
     }
     

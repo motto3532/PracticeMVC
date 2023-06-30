@@ -7,47 +7,66 @@
 
 import UIKit
 
-class TableViewController: UIViewController, UITableViewDataSource {
+class TableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     let cellClassName = "TableViewCell"
     let reuseId = "TableViewCell"
     
-    var users: [UserModel] = []
+    var itemList: [(name: String, maker: String, link: URL, image: URL)] = []
 
     @IBOutlet weak var tableView: UITableView! {
         didSet {
             let cellNib = UINib(nibName: cellClassName, bundle: nil)
             tableView.register(cellNib, forCellReuseIdentifier: reuseId)
+            
+            tableView.estimatedRowHeight = UITableView.automaticDimension
+            tableView.rowHeight = UITableView.automaticDimension
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.delegate = self
+        tableView.dataSource = self
+        
         //self.tableView.isHidden = true
         
-        //APIでユーザーを取得してくる代わり
-        let newUsers: [[String: Any]] = [
-            ["name": "たろう", "age": 18, "occupation": "東京"],
-            ["name": "かな", "age": 22, "occupation": "福岡"],
-            ["name": "こうき", "age": 30, "occupation": "広島"],
-            ["name": "ゆうこ", "age": 14, "occupation": "北海道"],
-            ["name": "たけし", "age": 50, "occupation": "富山"],
-            ["name": "さき", "age": 33, "occupation": "千葉"],
-        ]
-        
-        for user in newUsers {
-            users.append(
-                UserModel(
-                    name: user["name"] as! String,
-                    age: user["age"] as! Int,
-                    occupation: user["occupation"] as! String
-                )
-            )
+        //API
+        let keyword = "サラダ"
+        guard let keyword_encode = keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+            return
         }
+        guard let req_url = URL(string: "https://sysbird.jp/toriko/api/?apikey=guest&format=json&keyword=\(keyword_encode)&max=99&order=r") else {
+            return
+        }
+        
+        let req = URLRequest(url: req_url)
+        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
+        
+        let task = session.dataTask(with: req, completionHandler: {(data, response, error) in
+            session.finishTasksAndInvalidate()
+            do {
+                let decoder = JSONDecoder()
+                let json = try decoder.decode(ResultItems.self, from: data!)
+                
+                if let items = json.items {
+                    for item in items {
+                        if let name = item.name, let maker = item.maker, let link = item.url, let image = item.image {
+                            let newItem = (name, maker, link, image)
+                            self.itemList.append(newItem)
+                        }
+                    }
+                }
+            } catch {
+                return
+            }
+        })
+        task.resume()
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users.count
+        return itemList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -55,9 +74,6 @@ class TableViewController: UIViewController, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath) as? TableViewCell else {
             return UITableViewCell(style: .default, reuseIdentifier: reuseId)
         }
-        
-        let user = users[indexPath.row]
-        cell.configure(user: user)
         
         return cell
     }
