@@ -36,18 +36,23 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
         guard let keyword_encode = keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
             return
         }
-        guard let req_url = URL(string: "https://sysbird.jp/toriko/api/?apikey=guest&format=json&keyword=\(keyword_encode)&max=99&order=r") else {
+        guard let req_url = URL(string: "https://sysbird.jp/toriko/api/?apikey=guest&format=json&keyword=\(keyword_encode)&max=10&order=r") else {
             return
         }
-        
+        print("req_url:", req_url)
         let req = URLRequest(url: req_url)
+        print("req:", req)
+        
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
         
         let task = session.dataTask(with: req, completionHandler: {(data, response, error) in
             session.finishTasksAndInvalidate()
             do {
                 let decoder = JSONDecoder()
+                print("decoder:", decoder)
+                print("data:", data!)
                 let json = try decoder.decode(ResultItems.self, from: data!)
+                print("json:", json)
                 
                 if let items = json.items {
                     for item in items {
@@ -56,13 +61,13 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
                             self.itemList.append(newItem)
                         }
                     }
+                    self.tableView.reloadData()
                 }
             } catch {
-                return
+                print("error:", error)
             }
         })
         task.resume()
-        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -73,6 +78,12 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath) as? TableViewCell else {
             return UITableViewCell(style: .default, reuseIdentifier: reuseId)
+        }
+        
+        cell.itemName.text = itemList[indexPath.row].name
+        cell.itemMaker.text = itemList[indexPath.row].maker
+        if let imageData = try? Data(contentsOf: itemList[indexPath.row].image) {
+            cell.itemImage.image = UIImage(data: imageData)
         }
         
         return cell

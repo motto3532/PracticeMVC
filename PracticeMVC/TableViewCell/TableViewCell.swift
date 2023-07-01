@@ -9,21 +9,14 @@ import UIKit
 
 class TableViewCell: UITableViewCell {
 
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var ageLabel: UILabel!
-    @IBOutlet weak var occupationLabel: UILabel!
+    @IBOutlet weak var itemImage: UIImageView!
+    @IBOutlet weak var itemName: UILabel!
+    @IBOutlet weak var itemMaker: UILabel!
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        nameLabel.text = nil
-        ageLabel.text = nil
-        occupationLabel.text = nil
+        itemName = nil
+        itemImage = nil
+        itemMaker = nil
     }
-    
-    func configure(user: UserModel) {
-        nameLabel.text = user.name
-        ageLabel.text = user.age
-        occupationLabel.text = user.occupation
-    }
-    
 }
