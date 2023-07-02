@@ -7,13 +7,12 @@
 
 import Foundation
 
-struct Item: Codable {
+struct ItemJson: Codable {
     let name: String?
     let maker: String?
-    let url: URL?
     let image: URL?
 }
 
-struct ResultItems: Codable {
-    let items: [Item]?
+struct ResultJson: Codable {
+    let item: [ItemJson]?
 }
