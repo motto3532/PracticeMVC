@@ -11,16 +11,20 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     let cellClassName = "TableViewCell"
     let reuseID = "cell"
     
+    var okashiList: [Okashi] = []
+    
     @IBOutlet weak var tableView: UITableView! {
         didSet {
             //xib読み込み
             let cellNib = UINib(nibName: cellClassName, bundle: nil)
             //TableViewにセルを登録
             tableView.register(cellNib, forCellReuseIdentifier: reuseID)
+            //推定の高さ
+            tableView.estimatedRowHeight = 200 * 10
+            //実際の高さ
+            tableView.rowHeight = 200
         }
     }
-    
-    var okashiList: [(name: String, maker: String, image: URL)] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,8 +58,8 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 if let items = json.item {
                     for item in items {
                         if let name = item.name, let maker = item.maker, let image = item.image {
-                            let okashi = (name, maker, image)
-                            self.okashiList.append(okashi)
+                            let newOkashi = Okashi(name: name, maker: maker, image: image)
+                            self.okashiList.append(newOkashi)
                         }
                     }
                     self.tableView.reloadData()
@@ -75,12 +79,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseID, for: indexPath) as? TableViewCell else {
             return UITableViewCell()
         }
-        cell.itemName.text = okashiList[indexPath.row].name
-        cell.itemMaker.text = okashiList[indexPath.row].maker
-        if let imageData = try? Data(contentsOf: okashiList[indexPath.row].image) {
-            cell.imageView?.image = UIImage(data: imageData)
-        }
-        
+        cell.configure(okashi: okashiList[indexPath.row])
         return cell
     }
     

@@ -16,3 +16,9 @@ struct ItemJson: Codable {
 struct ResultJson: Codable {
     let item: [ItemJson]?
 }
+
+struct Okashi {
+    let name: String
+    let maker: String
+    let image: URL
+}

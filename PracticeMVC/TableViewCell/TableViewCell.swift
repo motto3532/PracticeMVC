@@ -15,8 +15,20 @@ class TableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        itemName = nil
-        itemImage = nil
-        itemMaker = nil
+        itemName.text = nil
+        itemImage.image = nil
+        itemMaker.text = nil
+    }
+    
+    func configure(okashi: Okashi) {
+        itemName.text = okashi.name
+        itemMaker.text = okashi.maker
+        DispatchQueue.global().async {
+            if let imageData = try? Data(contentsOf: okashi.image) {
+                DispatchQueue.main.async {
+                    self.itemImage.image = UIImage(data: imageData)
+                }
+            }
+        }
     }
 }
