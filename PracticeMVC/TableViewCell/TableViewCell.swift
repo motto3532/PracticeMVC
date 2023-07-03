@@ -7,11 +7,11 @@
 
 import UIKit
 
-class TableViewCell: UITableViewCell {
+final class TableViewCell: UITableViewCell {
 
-    @IBOutlet weak var itemImage: UIImageView!
-    @IBOutlet weak var itemName: UILabel!
-    @IBOutlet weak var itemMaker: UILabel!
+    @IBOutlet private weak var itemImage: UIImageView!
+    @IBOutlet private weak var itemName: UILabel!
+    @IBOutlet private weak var itemMaker: UILabel!
     
     override func prepareForReuse() {
         super.prepareForReuse()

@@ -7,13 +7,13 @@
 
 import UIKit
 
-class TableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    let cellClassName = "TableViewCell"
-    let reuseID = "cell"
+final class TableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    private let cellClassName = "TableViewCell"
+    private let reuseID = "cell"
     
-    var okashiList: [Okashi] = []
+    private var okashiList: [Okashi] = []
     
-    @IBOutlet weak var tableView: UITableView! {
+    @IBOutlet private weak var tableView: UITableView! {
         didSet {
             //xib読み込み
             let cellNib = UINib(nibName: cellClassName, bundle: nil)
@@ -34,7 +34,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         searchOkashi(keyword: "カレー味")
     }
     
-    func searchOkashi(keyword: String) {
+    private func searchOkashi(keyword: String) {
         //検索ワード
         guard let keyword_encode = keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
             return
