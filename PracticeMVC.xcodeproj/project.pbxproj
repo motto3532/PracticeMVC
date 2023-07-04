@@ -15,6 +15,7 @@
 		3C429A9A2A4C5FEC009FD5BB /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C429A992A4C5FEC009FD5BB /* TableViewController.swift */; };
 		3C429A9D2A4C6073009FD5BB /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C429A9B2A4C6073009FD5BB /* TableViewCell.swift */; };
 		3C429A9E2A4C6073009FD5BB /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C429A9C2A4C6073009FD5BB /* TableViewCell.xib */; };
+		3CABCF892A5404CB0010D338 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CABCF882A5404CB0010D338 /* API.swift */; };
 		3CB3AA5C2A4F207100EB5E70 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB3AA5B2A4F207100EB5E70 /* Item.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		3C429A992A4C5FEC009FD5BB /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		3C429A9B2A4C6073009FD5BB /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		3C429A9C2A4C6073009FD5BB /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
+		3CABCF882A5404CB0010D338 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		3CB3AA5B2A4F207100EB5E70 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -64,6 +66,7 @@
 			children = (
 				3C30C59B2A4C5E35006DE737 /* AppDelegate.swift */,
 				3C30C59D2A4C5E35006DE737 /* SceneDelegate.swift */,
+				3CABCF872A54008C0010D338 /* Utility */,
 				3CB3AA582A4DCD9200EB5E70 /* Model */,
 				3C30C5AF2A4C5E9B006DE737 /* TableView */,
 				3C429A902A4C5EEC009FD5BB /* TableViewCell */,
@@ -90,6 +93,14 @@
 				3C429A9C2A4C6073009FD5BB /* TableViewCell.xib */,
 			);
 			path = TableViewCell;
+			sourceTree = "<group>";
+		};
+		3CABCF872A54008C0010D338 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				3CABCF882A5404CB0010D338 /* API.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 		3CB3AA582A4DCD9200EB5E70 /* Model */ = {
@@ -176,6 +187,7 @@
 				3C30C59C2A4C5E35006DE737 /* AppDelegate.swift in Sources */,
 				3C429A9D2A4C6073009FD5BB /* TableViewCell.swift in Sources */,
 				3C30C59E2A4C5E35006DE737 /* SceneDelegate.swift in Sources */,
+				3CABCF892A5404CB0010D338 /* API.swift in Sources */,
 				3C429A9A2A4C5FEC009FD5BB /* TableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

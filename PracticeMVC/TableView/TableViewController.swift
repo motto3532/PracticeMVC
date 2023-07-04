@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class TableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+final class TableViewController: UIViewController {
     private let cellClassName = "TableViewCell"
     private let reuseID = "cell"
     
@@ -23,13 +23,13 @@ final class TableViewController: UIViewController, UITableViewDelegate, UITableV
             tableView.estimatedRowHeight = 200 * 10
             //実際の高さ
             tableView.rowHeight = 200
+            //何も表示するものないからhidden
+            tableView.isHidden = true
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.delegate = self
-        tableView.dataSource = self
         
         searchOkashi(keyword: "カレー味")
     }
@@ -62,15 +62,21 @@ final class TableViewController: UIViewController, UITableViewDelegate, UITableV
                             self.okashiList.append(newOkashi)
                         }
                     }
-                    self.tableView.reloadData()
                 }
+                self.tableView.reloadData()
+                self.tableView.isHidden = false
             } catch {
                 print(error)
             }
         })
         task.resume()
     }
-    
+}
+
+extension TableViewController: UITableViewDelegate {
+}
+
+extension TableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return okashiList.count
     }
@@ -79,8 +85,8 @@ final class TableViewController: UIViewController, UITableViewDelegate, UITableV
         guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseID, for: indexPath) as? TableViewCell else {
             return UITableViewCell()
         }
+        
         cell.configure(okashi: okashiList[indexPath.row])
         return cell
     }
-    
 }
