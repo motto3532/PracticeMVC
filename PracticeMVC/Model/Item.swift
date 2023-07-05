@@ -7,18 +7,12 @@
 
 import Foundation
 
-struct ItemJson: Codable {
-    let name: String?
-    let maker: String?
-    let image: URL?
-}
-
-struct ResultJson: Codable {
-    let item: [ItemJson]?
-}
-
 struct Okashi: Codable {
     let name: String
     let maker: String
     let image: URL
+}
+
+struct ResponseData: Codable {
+    let item: [Okashi]
 }

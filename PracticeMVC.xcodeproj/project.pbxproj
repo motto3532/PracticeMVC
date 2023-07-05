@@ -68,8 +68,8 @@
 				3C30C59D2A4C5E35006DE737 /* SceneDelegate.swift */,
 				3CABCF872A54008C0010D338 /* Utility */,
 				3CB3AA582A4DCD9200EB5E70 /* Model */,
-				3C30C5AF2A4C5E9B006DE737 /* TableView */,
-				3C429A902A4C5EEC009FD5BB /* TableViewCell */,
+				3C39D5682A5583FA0019AC98 /* View */,
+				3C39D5672A5583F10019AC98 /* Controller */,
 				3C30C5A42A4C5E37006DE737 /* Assets.xcassets */,
 				3C30C5A62A4C5E37006DE737 /* LaunchScreen.storyboard */,
 				3C30C5A92A4C5E37006DE737 /* Info.plist */,
@@ -77,22 +77,22 @@
 			path = PracticeMVC;
 			sourceTree = "<group>";
 		};
-		3C30C5AF2A4C5E9B006DE737 /* TableView */ = {
+		3C39D5672A5583F10019AC98 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				3C429A992A4C5FEC009FD5BB /* TableViewController.swift */,
 				3C429A912A4C5F11009FD5BB /* TableView.storyboard */,
 			);
-			path = TableView;
+			path = Controller;
 			sourceTree = "<group>";
 		};
-		3C429A902A4C5EEC009FD5BB /* TableViewCell */ = {
+		3C39D5682A5583FA0019AC98 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				3C429A9B2A4C6073009FD5BB /* TableViewCell.swift */,
 				3C429A9C2A4C6073009FD5BB /* TableViewCell.xib */,
 			);
-			path = TableViewCell;
+			path = View;
 			sourceTree = "<group>";
 		};
 		3CABCF872A54008C0010D338 /* Utility */ = {

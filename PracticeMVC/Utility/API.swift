@@ -31,30 +31,23 @@ final class API {
         
         //タスク
         let task = session.dataTask(with: urlRequest) { data, response, error in
-            //エラー
-            if let error = error {
-                print("エラー: \(error)")
+            if error != nil {
                 completion?([])
                 return
             }
-            
-            //データ
-            guard let data = data else {
-                print("データがありません")
+            //アンラップ
+            guard
+                let data = data,
+                let responseJson = try? JSONDecoder().decode(ResponseData.self, from: data)/*try?は失敗したらnil。つまりアンラップ失敗*/
+            else {
                 completion?([])
                 return
             }
-            
-            do {
-                let decoder = JSONDecoder()
-                let okashiList = try decoder.decode([Okashi].self, from: data)
-                completion?(okashiList)
-            } catch let error {
-                print(error)
-                completion?([])
-                return
-            }
+            //通信成功
+            let okashiList = responseJson.item
+            completion?(okashiList)
         }
+        //タスク実行
         task.resume()
     }
 }
